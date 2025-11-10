@@ -1,6 +1,6 @@
 # app.py
 # This is a test commit
-# This is using ec2 instance 
+# This is the commit using self hosted runner with ec2
 def add(a, b):
     return a + b
 
