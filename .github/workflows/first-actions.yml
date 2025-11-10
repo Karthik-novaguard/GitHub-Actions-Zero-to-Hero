@@ -7,7 +7,15 @@ jobs:
     runs-on: self-hosted
 
     steps:
-    - uses: actions/checkout@v3
+    - name: Checkout repository
+      uses: actions/checkout@v3
+      with:
+        fetch-depth: 0
+
+    - name: Verify files
+      run: |
+        pwd
+        ls -R
 
     - name: Check Python version
       run: python3 --version
