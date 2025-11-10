@@ -4,28 +4,25 @@ on: [push]
 
 jobs:
   build:
-    runs-on: self-hosted
+    runs-on: ubuntu-latest
+
+    strategy:
+      matrix:
+        python-version: [3.8, 3.9]
 
     steps:
-    - name: Checkout repository
-      uses: actions/checkout@v3
+    - uses: actions/checkout@v3
+    - name: Set up Python
+      uses: actions/setup-python@v2
       with:
-        fetch-depth: 0
-
-    - name: Verify files
-      run: |
-        pwd
-        ls -R
-
-    - name: Check Python version
-      run: python3 --version
+        python-version: ${{ matrix.python-version }}
 
     - name: Install dependencies
       run: |
-        python3 -m ensurepip --upgrade
-        python3 -m pip install --upgrade pip
-        pip3 install pytest
+        python -m pip install --upgrade pip
+        pip install pytest
 
     - name: Run tests
-      working-directory: src
-      run: pytest addition.py
+      run: |
+        cd src
+        python -m pytest addition.py
